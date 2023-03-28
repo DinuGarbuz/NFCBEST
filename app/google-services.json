@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "434677883056",
+    "project_id": "nfcbest-bfce0",
+    "storage_bucket": "nfcbest-bfce0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434677883056:android:73239826867290f0df9b75",
+        "android_client_info": {
+          "package_name": "com.example.nfcbest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434677883056-g89fvos8c8rbdgctn6d8p3g40ejdk7lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzyJpC_RqO0-8ST1l_ZnLzuXP8nuyzLHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434677883056-g89fvos8c8rbdgctn6d8p3g40ejdk7lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434677883056:android:68788ca9f3ac33b2df9b75",
+        "android_client_info": {
+          "package_name": "com.example.sasefaca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434677883056-g89fvos8c8rbdgctn6d8p3g40ejdk7lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzyJpC_RqO0-8ST1l_ZnLzuXP8nuyzLHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434677883056-g89fvos8c8rbdgctn6d8p3g40ejdk7lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
