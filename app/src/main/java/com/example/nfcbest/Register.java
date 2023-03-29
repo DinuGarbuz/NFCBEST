@@ -4,14 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.nfc.FormatException;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
@@ -21,31 +16,21 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.core.InFilter;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddMoney extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
     // list of NFC technologies detected:
     private final String[][] techList = new String[][] {
@@ -66,18 +51,14 @@ public class AddMoney extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
 
-        setContentView(R.layout.activity_add_money);
+        setContentView(R.layout.activity_register);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button button = (Button) findViewById(R.id.bagabani_btn);
         TextView tagID = findViewById(R.id.edit_message);
-        TextView name = findViewById(R.id.nameFromNfc);
-        TextView money = findViewById(R.id.moneyFromNfc);
-        EditText moneyInput = (EditText)findViewById(R.id.adauga_input) ;
-
-        String TagID = tagID.getText().toString();
-
+        EditText name = (EditText)findViewById(R.id.name_input);
+        EditText money = (EditText)findViewById(R.id.bagabani_input);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -85,22 +66,18 @@ public class AddMoney extends AppCompatActivity {
 
                 String Name = name.getText().toString();
                 String Money =  money.getText().toString();
-                String MoneyInput = moneyInput.getText().toString();
-                int num1 = Integer.parseInt(Money);
-                int num2 = Integer.parseInt(MoneyInput);
-                int sum = num1 + num2;
-                String Sum =String.valueOf(sum);
                 String TagID = tagID.getText().toString();
                 Map<String, Object> city = new HashMap<>();
                 city.put("ID", TagID);
                 city.put("Name", Name);
-                city.put("Money",  Sum);
+                city.put("Money",  Money);
 
                 db.collection("test").document(TagID)
                         .set(city)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "Inregistrare cu succes", Toast.LENGTH_LONG).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -108,28 +85,8 @@ public class AddMoney extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                             }
                         });
-
-                DocumentReference docRef = db.collection("test").document(TagID);
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Toast.makeText(getApplicationContext(), "Adaugare bani cu succes", Toast.LENGTH_LONG).show();
-                                ((TextView)findViewById(R.id.moneyFromNfc)).setText(document.get("Money").toString());
-                            } else {
-                                //Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            //  Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
             }
         });
-
-
 
 
     }
@@ -159,32 +116,10 @@ public class AddMoney extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        TextView tagID = findViewById(R.id.edit_message);
-        String TagID = tagID.getText().toString();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             ((TextView)findViewById(R.id.edit_message)).setText(
                     "NFC Tag\n" +
                             ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
-
-            DocumentReference docRef = db.collection("test").document(TagID);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Toast.makeText(getApplicationContext(), "Luare date cu succes", Toast.LENGTH_LONG).show();
-                            ((TextView)findViewById(R.id.nameFromNfc)).setText(document.get("Name").toString());
-                            ((TextView)findViewById(R.id.moneyFromNfc)).setText(document.get("Money").toString());
-                        } else {
-                            //Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        //  Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
         }
     }
 

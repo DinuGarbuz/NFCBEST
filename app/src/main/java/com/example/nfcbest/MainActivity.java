@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button);
         Button button2 = (Button) findViewById(R.id.button2);
+        Button button3 = (Button) findViewById(R.id.button3);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
                                           Intent i = new Intent(getApplicationContext(),AddMoney.class);
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),Bar.class);
                 startActivity(i);
             //    setContentView(R.layout.activity_bar);
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),Register.class);
+                startActivity(i);
+                //    setContentView(R.layout.activity_bar);
             }
         });
     }

@@ -7,12 +7,133 @@
     tools:context=".Bar">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/bere_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="310dp"
-        android:text="bar"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="72dp"
+        android:text="Bere: 5 Lei"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shot_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="148dp"
+        android:text="Shot: 5 Lei"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bere_txt" />
+
+    <TextView
+        android:id="@+id/bereNr_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="64dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/bere_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shotNr_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="156dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/shot_txt"
+        app:layout_constraintTop_toBottomOf="@+id/bereNr_txt" />
+
+    <Button
+        android:id="@+id/berePlus_btn"
+        android:layout_width="59dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:text="+"
+        app:layout_constraintStart_toEndOf="@+id/bereNr_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bereMinus_btn"
+        android:layout_width="65dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="64dp"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@+id/bere_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/shotPlus_btn"
+        android:layout_width="59dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="108dp"
+        android:text="+"
+        app:layout_constraintStart_toEndOf="@+id/shotNr_txt"
+        app:layout_constraintTop_toBottomOf="@+id/berePlus_btn" />
+
+    <Button
+        android:id="@+id/shotMinusBtn"
+        android:layout_width="55dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="109dp"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@+id/shot_txt"
+        app:layout_constraintTop_toBottomOf="@+id/bereMinus_btn" />
+
+    <TextView
+        android:id="@+id/suma_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="178dp"
+        android:layout_marginTop="49dp"
+        android:text="Total"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shotMinusBtn" />
+
+    <Button
+        android:id="@+id/pay_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginTop="49dp"
+        android:text="Pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/suma_txt" />
+
+    <TextView
+        android:id="@+id/nameBar_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="228dp"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shot_txt" />
+
+    <TextView
+        android:id="@+id/moneyBar_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="27dp"
+        android:text="Money"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameBar_txt" />
+
+    <TextView
+        android:id="@+id/tagIDBar_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="22dp"
+        android:text="TagID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moneyBar_txt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
