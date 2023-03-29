@@ -95,8 +95,18 @@ public class Register extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // creating pending intent:
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         // creating intent receiver for NFC events:
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE);
+        }
+        else
+        {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_ONE_SHOT);
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);

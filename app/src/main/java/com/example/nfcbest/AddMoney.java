@@ -47,6 +47,7 @@ import java.util.Map;
 
 public class AddMoney extends AppCompatActivity {
 
+
     // list of NFC technologies detected:
     private final String[][] techList = new String[][] {
             new String[] {
@@ -138,7 +139,17 @@ public class AddMoney extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // creating pending intent:
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE);
+        }
+        else
+        {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_ONE_SHOT);
+}
         // creating intent receiver for NFC events:
         IntentFilter filter = new IntentFilter();
         filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
