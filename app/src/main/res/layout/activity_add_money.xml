@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30px"
+            android:paddingLeft="20px"
+
             android:text="Tag ID" />
 
         <TextView
@@ -24,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30px"
+            android:paddingLeft="20px"
             android:text="tagid" />
 
         <TextView
@@ -31,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30px"
+            android:paddingLeft="20px"
             android:text="Nume" />
 
         <TextView
@@ -43,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30px"
+            android:paddingLeft="20px"
             android:text="Cont:" />
 
         <TextView
@@ -54,7 +59,10 @@
             android:id="@+id/adauga_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Adauga" />
+            android:paddingTop="30px"
+            android:paddingLeft="20px"
+            android:layout_marginBottom="5dp"
+            android:text="Adauga bani" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -71,7 +79,10 @@
         <Button
             android:id="@+id/bagabani_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="-20dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/custom_button"
             android:text="BAGA BANI" />
 
     </LinearLayout>

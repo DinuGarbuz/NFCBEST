@@ -10,21 +10,24 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="209dp"
         android:layout_marginBottom="99dp"
         android:onClick="click"
         android:text="Baga bani"
+        app:backgroundTint="@null"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,11 +35,13 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="23dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="28dp"
         android:text="Bar"
+        app:backgroundTint="@null"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
@@ -44,10 +49,12 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="63dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="8dp"
         android:text="Register"
+        app:backgroundTint="@null"
+        android:background="@drawable/custom_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
