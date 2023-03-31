@@ -57,18 +57,24 @@ public class Bar extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button pay = (Button) findViewById(R.id.pay_btn);
+        Button menu = (Button) findViewById(R.id.menuBar_btn);
         Button berePlus = (Button) findViewById(R.id.berePlus_btn);
         Button bereMinus = (Button) findViewById(R.id.bereMinus_btn);
         Button shotPlus = (Button) findViewById(R.id.shotPlus_btn);
         Button shotMinus = (Button) findViewById(R.id.shotMinusBtn);
+        Button cockMinus = (Button) findViewById(R.id.cocktailMinusBtn);
+        Button cockPlus = (Button) findViewById(R.id.cocktailPlus_btn);
         TextView bereNr = findViewById(R.id.bereNr_txt);
         TextView shotNr = findViewById(R.id.shotNr_txt);
+        TextView cockNr = findViewById(R.id.cocktailNr_txt);
         TextView sum = findViewById(R.id.suma_txt);
         TextView name = findViewById(R.id.nameBar_txt);
         TextView money = findViewById(R.id.moneyBar_txt);
         TextView tagID = findViewById(R.id.tagIDBar_txt);
 
         String TagID = tagID.getText().toString();
+
+
 
         berePlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +85,7 @@ public class Bar extends AppCompatActivity {
                 int sum = num1 + 1;
                 String Sum =String.valueOf(sum);
                 bereNr.setText(Sum);
-                calculateSum(sum, Integer.parseInt(shotNr.getText().toString()));
+                calculateSum(sum, Integer.parseInt(shotNr.getText().toString()),Integer.parseInt(cockNr.getText().toString()) );
             }
         });
 
@@ -89,10 +95,13 @@ public class Bar extends AppCompatActivity {
 
                 String BereNr = bereNr.getText().toString();
                 int num1 = Integer.parseInt(BereNr);
-                int sum = num1 - 1;
+                int sum = 0;
+                if (num1 >0) {
+                    sum = num1 - 1;
+                }
                 String Sum =String.valueOf(sum);
                 bereNr.setText(Sum);
-                calculateSum(sum, Integer.parseInt(shotNr.getText().toString()));
+                calculateSum(sum, Integer.parseInt(shotNr.getText().toString()), Integer.parseInt(cockNr.getText().toString()));
             }
         });
 
@@ -105,7 +114,7 @@ public class Bar extends AppCompatActivity {
                 int sum = num1 + 1;
                 String Sum =String.valueOf(sum);
                 shotNr.setText(Sum);
-                calculateSum(sum, Integer.parseInt(bereNr.getText().toString()));
+                calculateSum(Integer.parseInt(bereNr.getText().toString()), sum, Integer.parseInt(cockNr.getText().toString()));
             }
         });
 
@@ -115,72 +124,132 @@ public class Bar extends AppCompatActivity {
 
                 String ShotNr = shotNr.getText().toString();
                 int num1 = Integer.parseInt(ShotNr);
-                int sum = num1 - 1;
+                int sum = 0;
+                if (num1 >0) {
+                     sum = num1 - 1;
+                }
                 String Sum =String.valueOf(sum);
                 shotNr.setText(Sum);
-                calculateSum(sum, Integer.parseInt(bereNr.getText().toString()));
+                calculateSum(Integer.parseInt(bereNr.getText().toString()), sum, Integer.parseInt(cockNr.getText().toString()));
+            }
+        });
+
+        cockPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String CockNr = cockNr.getText().toString();
+                int num1 = Integer.parseInt(CockNr);
+                int sum = num1 + 1;
+                String Sum =String.valueOf(sum);
+                cockNr.setText(Sum);
+                calculateSum(Integer.parseInt(bereNr.getText().toString()),Integer.parseInt(shotNr.getText().toString()), sum );
+            }
+        });
+
+        cockMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String CockNr = cockNr.getText().toString();
+                int num1 = Integer.parseInt(CockNr);
+                int sum = 0;
+                if (num1 >0) {
+                    sum = num1 - 1;
+                }
+                String Sum =String.valueOf(sum);
+                cockNr.setText(Sum);
+                calculateSum(Integer.parseInt(bereNr.getText().toString()),Integer.parseInt(shotNr.getText().toString()), sum );
             }
         });
 
         pay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                String Name = name.getText().toString();
-                String Money =  money.getText().toString();
-                String Total = sum.getText().toString();
-           //     String MoneyInput = moneyInput.getText().toString();
-                int num1 = Integer.parseInt(Money);
-                int num2 = Integer.parseInt(Total);
-                int sum = num1 - num2;
-                String Sum =String.valueOf(sum);
-                String TagID = tagID.getText().toString();
-                Map<String, Object> city = new HashMap<>();
-                city.put("ID", TagID);
-                city.put("Name", Name);
-                city.put("Money",  Sum);
+                if (tagID.getText().toString().length() > 5 && name.getText().toString() != "Name") {
+                    String Name = name.getText().toString();
+                    String Money = money.getText().toString();
+                    String Total = sum.getText().toString();
+                    //     String MoneyInput = moneyInput.getText().toString();
+                    int num1 = Integer.parseInt(Money);
+                    int num2 = Integer.parseInt(Total);
+                    if (num1 >= num2) {
+                        int sum = num1 - num2;
+                        String Sum = String.valueOf(sum);
+                        String TagID = tagID.getText().toString();
+                        Map<String, Object> city = new HashMap<>();
+                        city.put("ID", TagID);
+                        city.put("Name", Name);
+                        city.put("Money", Sum);
 
-                db.collection("test").document(TagID)
-                        .set(city)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        db.collection("test").document(TagID)
+                                .set(city)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                    }
+                                });
+
+                        DocumentReference docRef = db.collection("test").document(TagID);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Toast.makeText(getApplicationContext(), "Cumparare cu succes", Toast.LENGTH_LONG).show();
+                                        ((TextView) findViewById(R.id.moneyBar_txt)).setText(document.get("Money").toString());
+                                    } else {
+                                        //Log.d(TAG, "No such document");
+                                    }
+                                } else {
+                                    //  Log.d(TAG, "get failed with ", task.getException());
+                                }
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                            }
+
                         });
 
-                DocumentReference docRef = db.collection("test").document(TagID);
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Toast.makeText(getApplicationContext(), "Cumparare cu succes", Toast.LENGTH_LONG).show();
-                                ((TextView)findViewById(R.id.moneyBar_txt)).setText(document.get("Money").toString());
-                            } else {
-                                //Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            //  Log.d(TAG, "get failed with ", task.getException());
-                        }
+                        Intent i = new Intent(getApplicationContext(),Bar.class);
+                        startActivity(i);
                     }
-                });
+                    else {
+                        Toast.makeText(getApplicationContext(), "Nu ai bani frate", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Intai scaneaza NFC", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+                //    setContentView(R.layout.activity_bar);
             }
         });
 
 
-
     }
 
-    public void calculateSum(int bereNr, int shotNr) {
-        int Total = 3*bereNr + 5* shotNr;
+    public void calculateSum(int bereNr, int shotNr, int cockNr) {
+        int Total = 4*bereNr + 4* shotNr + 6* cockNr;
         TextView sum = findViewById(R.id.suma_txt);
         String Sum =String.valueOf(Total);
         sum.setText(Sum);
+    }
+
+    public void resetBar(TextView bere, TextView shot, TextView cock){
+        bere.setText("0");
+        shot.setText("0");
+        cock.setText("0");
     }
     @Override
     protected void onResume() {
@@ -205,6 +274,30 @@ public class Bar extends AppCompatActivity {
         // enabling foreground dispatch for getting intent from NFC event:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        TextView tagID = findViewById(R.id.tagIDBar_txt);
+        String TagID = tagID.getText().toString();
+        if (tagID.getText().toString().length() > 7) {
+            DocumentReference docRef = db.collection("test").document(TagID);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                          //  Toast.makeText(getApplicationContext(), "Luare date cu succes", Toast.LENGTH_LONG).show();
+                            ((TextView)findViewById(R.id.nameBar_txt)).setText(document.get("Name").toString());
+                            ((TextView)findViewById(R.id.moneyBar_txt)).setText(document.get("Money").toString());
+                        } else {
+                         //   Toast.makeText(getApplicationContext(), "Tag-ul nu a fost inregistrat", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        //  Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -213,6 +306,29 @@ public class Bar extends AppCompatActivity {
         // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcAdapter.disableForegroundDispatch(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        TextView tagID = findViewById(R.id.tagIDBar_txt);
+        String TagID = tagID.getText().toString();
+        if (tagID.getText().toString().length() > 7) {
+            DocumentReference docRef = db.collection("test").document(TagID);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                          //  Toast.makeText(getApplicationContext(), "Luare date cu succes", Toast.LENGTH_LONG).show();
+                            ((TextView)findViewById(R.id.nameBar_txt)).setText(document.get("Name").toString());
+                            ((TextView)findViewById(R.id.moneyBar_txt)).setText(document.get("Money").toString());
+                        } else {
+                          //  Toast.makeText(getApplicationContext(), "Tag-ul nu a fost inregistrat", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        //  Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -222,7 +338,7 @@ public class Bar extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             ((TextView)findViewById(R.id.tagIDBar_txt)).setText(
-                    "NFC Tag\n" +
+
                             ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
 
             DocumentReference docRef = db.collection("test").document(TagID);
@@ -232,7 +348,7 @@ public class Bar extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Toast.makeText(getApplicationContext(), "Luare date cu succes", Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(getApplicationContext(), "Luare date cu succes", Toast.LENGTH_LONG).show();
                             ((TextView)findViewById(R.id.nameBar_txt)).setText(document.get("Name").toString());
                             ((TextView)findViewById(R.id.moneyBar_txt)).setText(document.get("Money").toString());
                         } else {
@@ -244,6 +360,7 @@ public class Bar extends AppCompatActivity {
                 }
             });
         }
+
     }
 
     private String ByteArrayToHexString(byte [] inarray) {

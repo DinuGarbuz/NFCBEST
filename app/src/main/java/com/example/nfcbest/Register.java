@@ -56,6 +56,7 @@ public class Register extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button button = (Button) findViewById(R.id.bagabani_btn);
+        Button menu = (Button) findViewById(R.id.menu_btn);
         TextView tagID = findViewById(R.id.edit_message);
         EditText name = (EditText)findViewById(R.id.name_input);
         EditText money = (EditText)findViewById(R.id.bagabani_input);
@@ -63,30 +64,47 @@ public class Register extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (tagID.getText().toString().length()>5) {
+                    String Name = name.getText().toString();
+                    String Money = money.getText().toString();
+                    String TagID = tagID.getText().toString();
+                    Map<String, Object> city = new HashMap<>();
+                    city.put("ID", TagID);
+                    city.put("Name", Name);
+                    city.put("Money", Money);
 
-                String Name = name.getText().toString();
-                String Money =  money.getText().toString();
-                String TagID = tagID.getText().toString();
-                Map<String, Object> city = new HashMap<>();
-                city.put("ID", TagID);
-                city.put("Name", Name);
-                city.put("Money",  Money);
+                    db.collection("test").document(TagID)
+                            .set(city)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Inregistrare cu succes", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                    Intent i = new Intent(getApplicationContext(),Register.class);
+                    startActivity(i);
+                }
 
-                db.collection("test").document(TagID)
-                        .set(city)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Inregistrare cu succes", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                            }
-                        });
+                else {
+                    Toast.makeText(getApplicationContext(), "Intai scaneaza NFC", Toast.LENGTH_LONG).show();
+                }
             }
         });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+                //    setContentView(R.layout.activity_bar);
+            }
+        });
+
 
 
     }
@@ -128,7 +146,6 @@ public class Register extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             ((TextView)findViewById(R.id.edit_message)).setText(
-                    "NFC Tag\n" +
                             ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
         }
     }

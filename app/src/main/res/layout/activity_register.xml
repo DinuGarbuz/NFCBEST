@@ -8,31 +8,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tag_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Tag ID" />
 
         <TextView
             android:id="@+id/edit_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
-            android:text="tagid" />
+            android:paddingTop="30px" />
 
         <TextView
             android:id="@+id/name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Nume" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,8 +50,8 @@
             android:id="@+id/bani_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Cont:" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,10 +71,20 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="-20dp"
-            app:backgroundTint="@null"
             android:background="@drawable/custom_button"
+            android:text="REGISTER"
 
-            android:text="REGISTER" />
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/menu_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/custom_button"
+            android:text="MENU"
+
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

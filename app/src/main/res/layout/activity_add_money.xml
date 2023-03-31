@@ -9,15 +9,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tag_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
 
             android:text="Tag ID" />
 
@@ -25,16 +25,16 @@
             android:id="@+id/edit_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="tagid" />
 
         <TextView
             android:id="@+id/name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Nume" />
 
         <TextView
@@ -46,8 +46,8 @@
             android:id="@+id/bani_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
             android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Cont:" />
 
         <TextView
@@ -59,9 +59,9 @@
             android:id="@+id/adauga_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30px"
-            android:paddingLeft="20px"
             android:layout_marginBottom="5dp"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
             android:text="Adauga bani" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -81,9 +81,18 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="-20dp"
-            app:backgroundTint="@null"
             android:background="@drawable/custom_button"
-            android:text="BAGA BANI" />
+            android:text="BAGA BANI"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/menuAddMoney_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/custom_button"
+            android:text="Menu"
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -154,8 +154,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="180dp"
-        android:layout_marginTop="136dp"
-        android:text="Total"
+        android:layout_marginTop="120dp"
+        android:text="0"
+        android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shotMinusBtn" />
 
@@ -187,7 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
         android:layout_marginTop="45dp"
-        android:text="Money"
+        android:text="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameBar_txt" />
 
@@ -201,5 +202,17 @@
         android:text="TagID"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moneyBar_txt" />
+
+    <Button
+        android:id="@+id/menuBar_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="664dp"
+        android:background="@drawable/custom_button"
+
+        android:text="MENU"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
